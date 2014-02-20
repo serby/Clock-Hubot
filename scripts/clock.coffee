@@ -2,10 +2,10 @@
 #   Github utility commands for Clock Limited
 #
 # Commands:
-#   clockbot info me - Reply with useful Clock information
+#   clockbot info - Reply with useful Clock information
 
 module.exports = (robot) ->
-    robot.respond /info/i, (response) ->
+    robot.respond /info/i, (msg) ->
         info = {
           "Intranet": "https://intranet.clock.co.uk/"
         }
