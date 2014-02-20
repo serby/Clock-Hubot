@@ -24,12 +24,10 @@ module.exports = (robot) ->
   robot.respond /info for (.*)$/i, (msg) ->
 
     if msg.match[1] of info
-      msg.send "Some information for #{msg.match[1]};\n"
       for key, value of info[msg.match[1]]
         msg.send "#{key}: #{value}"
     else
-      msg.send "No information for #{msg.match[1]}, sorry!"
-      msg.send "There is for #{available}."
+      msg.send "No information for #{msg.match[1]}, sorry!\n There is for #{available}."
 
   robot.respond /info available/i, (msg) ->
 
