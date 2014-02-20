@@ -4,25 +4,28 @@
 # Commands:
 #   clockbot info - Reply with useful Clock information
 
+available = "engineers, frontends, everyone"
+
+info = {
+    "engineers": {
+        "Nodemanual": "http: //nodejs.org/api/",
+        "MDNJSReference": "https: //developer.mozilla.org/en-US/docs/Web/JavaScript/Reference"
+    },
+    "frontends": {
+        "DevGuide": "http: //devguides.clock.co.uk/"
+    },
+    "everyone": {
+        "Intranet": "https: //intranet.clock.co.uk/"
+    }
+}
+
 module.exports = (robot) ->
-    robot.respond /info for devs/i, (msg) ->
+    robot.respond /info for (.*)$/i, (msg) ->
 
-        dev_info = {
-          "Dev Guide": "http://devguides.clock.co.uk/",
-          "Node manual": "http://nodejs.org/api/",
-          "MDN JS Reference": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference"
-        }
-
-        msg.send "Some useful developer information; "
-        for key, value of dev_info
+      if msg.match[1] of info
+        msg.send "Some information for #{msg.match[1]};\n"
+        for key, value of info[msg.match[1]]
           msg.send "#{key}: #{value}"
-
-    robot.respond /info for everyone/i, (msg) ->
-
-        info = {
-          "Intranet": "https://intranet.clock.co.uk/",
-        }
-
-        msg.send "Some useful general information; "
-        for key, value of info
-          msg.send "#{key}: #{value}"
+      else
+        msg.send "No information for #{msg.match[1]}, sorry!"
+        msg.send "There is for #{available}."
