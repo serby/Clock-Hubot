@@ -2,30 +2,35 @@
 #   Github utility commands for Clock Limited
 #
 # Commands:
-#   clockbot info - Reply with useful Clock information
+#   hubot info available - Show which fields have information available
+#   hubot info for <field> - Reply with useful Clock information based on field
 
 available = "engineers, frontends, everyone"
 
 info = {
     "engineers": {
-        "Nodemanual": "http: //nodejs.org/api/",
-        "MDNJSReference": "https: //developer.mozilla.org/en-US/docs/Web/JavaScript/Reference"
+        "Nodemanual": "http://nodejs.org/api/",
+        "MDNJSReference": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference"
     },
     "frontends": {
-        "DevGuide": "http: //devguides.clock.co.uk/"
+        "DevGuide": "http://devguides.clock.co.uk/"
     },
     "everyone": {
-        "Intranet": "https: //intranet.clock.co.uk/"
+        "Intranet": "https://intranet.clock.co.uk/"
     }
 }
 
 module.exports = (robot) ->
-    robot.respond /info for (.*)$/i, (msg) ->
+  robot.respond /info for (.*)$/i, (msg) ->
 
-      if msg.match[1] of info
-        msg.send "Some information for #{msg.match[1]};\n"
-        for key, value of info[msg.match[1]]
-          msg.send "#{key}: #{value}"
-      else
-        msg.send "No information for #{msg.match[1]}, sorry!"
-        msg.send "There is for #{available}."
+    if msg.match[1] of info
+      msg.send "Some information for #{msg.match[1]};\n"
+      for key, value of info[msg.match[1]]
+        msg.send "#{key}: #{value}"
+    else
+      msg.send "No information for #{msg.match[1]}, sorry!"
+      msg.send "There is for #{available}."
+
+  robot.respond /info available/i, (msg) ->
+
+    msg.send "There is information avalable for #{available}."
