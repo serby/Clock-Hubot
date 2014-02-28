@@ -43,7 +43,6 @@ module.exports = (robot) ->
             msg.send "#{username}: #{skype}"
 
   getData = (msg, d) ->
-    msg.send "Connecting to: " + URL
     robot.http(URL)
     .header('Accept', 'application/json')
     .get() (err, res, body) ->
