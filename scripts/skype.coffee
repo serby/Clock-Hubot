@@ -34,9 +34,13 @@ module.exports = (robot) ->
 
       msg.send "No user '#{msg.match[1]}' found." unless found
 
+
   robot.respond /skype conf (.*)$/i, (msg) ->
 
     usernames = msg.match[1].split " "
+
+    if usernames.length == 1
+      msg.send "A conf call with one person? I'll do it anyway..."
 
     getData msg, (d) ->
       # DO STUFF
