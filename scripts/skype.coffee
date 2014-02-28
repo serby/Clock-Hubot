@@ -41,7 +41,7 @@ module.exports = (robot) ->
     getData msg, (d) ->
       # DO STUFF
       skype_array = []
-
+      found = null
       for key, value of d.members
         username = value.name
         realName = value.real_name
@@ -50,14 +50,17 @@ module.exports = (robot) ->
         for key, value of usernames
 
           if value in [username, realName, skype]
-
+            found = true
             if skype
               skype_array.push skype
             else
               msg.send "'#{value}' does not have Skype set on Slack."
 
-      joined = skype_array.join ";"
-      msg.send "https://#{process.env.HUBOT_SLACK_TEAM}.slack.com/link?url=skype:#{joined}?call"
+      if found
+        joined = skype_array.join ";"
+        msg.send "https://#{process.env.HUBOT_SLACK_TEAM}.slack.com/link?url=skype:#{joined}?call"
+      else
+        msg.send "No user '#{msg.match[1]}' found."
 
 
     # getData msg, (d) ->
