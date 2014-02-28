@@ -1,5 +1,5 @@
 # Description:
-#   Skype utility commands for Clock Limited
+#   Skype utility commands for Slack
 #
 #
 # Configuration:
