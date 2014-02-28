@@ -26,7 +26,10 @@ module.exports = (robot) ->
 
         if msg.match[1] in [username, realName, skype]
           found = true
-          msg.send "https://#{process.env.HUBOT_SLACK_TEAM}.slack.com/link?url=skype:#{skype}?call"
+          if skype
+            msg.send "https://#{process.env.HUBOT_SLACK_TEAM}.slack.com/link?url=skype:#{skype}?call"
+          else
+            msg.send "'#{msg.match[1]}' does not have Skype set on Slack."
           break
 
       msg.send "No user '#{msg.match[1]}' found." unless found
@@ -48,8 +51,10 @@ module.exports = (robot) ->
 
           if value in [username, realName, skype]
 
-            skype_array.unshift skype
-            break
+            if skype
+              skype_array.push skype
+            else
+              msg.send "'#{value}' does not have Skype set on Slack."
 
       joined = skype_array.join ";"
       msg.send "https://#{process.env.HUBOT_SLACK_TEAM}.slack.com/link?url=skype:#{joined}?call"
