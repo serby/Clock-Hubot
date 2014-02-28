@@ -6,7 +6,7 @@
 #   HUBOT_SLACK_SKYPE_TOKEN
 #
 # Commands:
-#   hubot who [is available | has Skype] - Show who is avilable
+#   hubot who [is available | has Skype] - Show who is available
 #   hubot skype <field> - Send a Skype call to a user
 
 
@@ -24,7 +24,7 @@ module.exports = (robot) ->
 
           if msg.match[1] in [username, realName, skype]
 
-            msg.send "skype:#{skype}?call"
+            msg.send "https://#{process.env.HUBOT_SLACK_TEAM}.slack.com/link?url=skype:#{skype}?call"
             break
 
   robot.respond /who [is available | has Skype]/i, (msg) ->
