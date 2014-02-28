@@ -37,10 +37,15 @@ module.exports = (robot) ->
         skype = d.members[key].skype
 
         if skype != null
+          user_array = []
           if realName
-            msg.send "#{realName}: #{skype}"
+            user_array.push "#{realName}: #{skype}"
           else
-            msg.send "#{username}: #{skype}"
+            user_array.push "#{username}: #{skype}"
+
+          users = user_array.join "\n"
+
+          msg.send users
 
   getData = (msg, d) ->
     robot.http(URL)
