@@ -14,7 +14,7 @@
 URL = "https://slack.com/api/users.list?token="+ process.env.HUBOT_SLACK_SKYPE_TOKEN
 
 module.exports = (robot) ->
-  robot.respond /skype (?!conf)(.*)$/i, (msg) ->
+  robot.respond /skype (?!conf\s)(.*)$/i, (msg) ->
 
     getData msg, (d) ->
       # DO STUFF
