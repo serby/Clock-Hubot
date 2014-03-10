@@ -1,5 +1,5 @@
 # Description:
-#   Look up npm package versions and URls
+#   Look up npm package information
 #
 # Dependencies:
 #   "htmlparser": "1.7.6"
@@ -9,8 +9,7 @@
 #   None
 #
 # Commands:
-#   hubot npm <package name> - returns npm package URL
-#   hubot npm version <package name> - returns npm package version if it exists
+#   hubot npm <package name> - returns npm package information
 #
 # Author:
 #   redhotvengeance
@@ -19,11 +18,7 @@ HtmlParser = require "htmlparser"
 Select     = require("soupselect").select
 
 module.exports = (robot) ->
-  robot.respond /npm (?!version\s)(.*)$/i, (msg) ->
-    packageName = escape(msg.match[1])
-    msg.send "http://ghub.io/#{packageName}"
-
-  robot.respond /npm version (.*)/i, (msg) ->
+  robot.respond /npm (.*)/i, (msg) ->
     packageName = escape(msg.match[1])
     msg.http("https://www.npmjs.org/package/#{packageName}").get() (err, res, body) ->
       if err
@@ -35,8 +30,18 @@ module.exports = (robot) ->
 
           parser.parseComplete body
 
+          descriptionData = Select(handler.dom, ".description")
           metaData = Select(handler.dom, ".metadata")
 
+          description = descriptionData[0].children[0].data.toString()
+          maintainersArray = metaData[0].children[1].children[3].children
+          maintainers = []
+          for person in maintainersArray then do (person) =>
+            if person.hasOwnProperty("children")
+              maintainers.push person.children[1].children[1].data.toString().match(/(?=.\S)[\w].*/ig)
+
+          lastUpdateString = metaData[0].children[3].children[3].children[2].data.toString()
+          lastUpdate = lastUpdateString.match(/\S([0-9]* [\w]* [\w]*)/ig)
           versionString = metaData[0].children[3].children[3].children[1].children[0].data.toString()
           versionArray = versionString.match(/([0-9.])/ig)
 
@@ -44,7 +49,7 @@ module.exports = (robot) ->
 
           for digit in versionArray then do (digit) =>
             version += digit
-
-          msg.send "It looks like #{packageName} is at version #{version}. http://ghub.io/#{packageName}"
+          msg.send lastUpdate
+          msg.send "#{packageName} #{version} by #{maintainers.join(", ")} ~ #{lastUpdate}\n#{description}\nhttp://ghub.io/#{packageName}"
         else
           msg.send "It looks like #{packageName} doesn't exist."
