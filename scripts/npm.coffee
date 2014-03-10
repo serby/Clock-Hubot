@@ -49,7 +49,9 @@ module.exports = (robot) ->
 
           for digit in versionArray then do (digit) =>
             version += digit
-          msg.send lastUpdate
-          msg.send "#{packageName} #{version} by #{maintainers.join(", ")} ~ #{lastUpdate} : #{description} : http://ghub.io/#{packageName}"
+          msg.send "#{packageName} #{version} by #{maintainers.join(", ")} ~ #{lastUpdate}"
+          msg.send "#{description}"
+          msg.send "http://ghub.io/#{packageName}"
+          
         else
           msg.send "It looks like #{packageName} doesn't exist."
