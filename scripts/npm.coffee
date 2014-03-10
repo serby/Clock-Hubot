@@ -19,7 +19,7 @@ HtmlParser = require "htmlparser"
 Select     = require("soupselect").select
 
 module.exports = (robot) ->
-  robot.respond /npm (?!version)(.*)$/i, (msg) ->
+  robot.respond /npm (?!version\s)(.*)$/i, (msg) ->
     packageName = escape(msg.match[1])
     msg.send "http://ghub.io/#{packageName}"
 
