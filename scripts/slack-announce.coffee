@@ -20,6 +20,7 @@ module.exports = (robot) ->
     announcement = msg.match[1]
     for room in allRooms
       robot.messageRoom room, announcement
+    msg.reply allRooms
 
   robot.respond /announce downtime for [“|"|‘|'](.*)["|'|”] starting (.*)/i, (msg) ->
     service = msg.match[1]
