@@ -7,7 +7,7 @@
 #
 # Commands:
 #   hubot announce <message> - Announce message
-#   hubot announce downtime for "<service>" starting <timeframe> - Syntactic sugar for announcing downtime commencement
+#   hubot announce downtime "<service>" <timeframe> - Announcing downtime commencement
 
 module.exports = (robot) ->
 
@@ -20,7 +20,7 @@ module.exports = (robot) ->
     for room in allRooms
       robot.messageRoom room, announcement
 
-  robot.respond /announce downtime for [“|"|‘|'](.*)["|'] starting (.*)/i, (msg) ->
+  robot.respond /announce downtime [“|"|‘|'](.*)["|'] (.*)/i, (msg) ->
     fields = []
     fields.push
       title: "Field 1: Title"
