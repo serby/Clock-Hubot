@@ -10,5 +10,5 @@
 
 module.exports = (robot) ->
   robot.respond /announce [“|"|‘|'](.*)["|']/i, (msg) ->
-  announcement = msg.match[1]
-  robot.messageRoom 'test', announcement
+    announcement = msg.match[1]
+    robot.messageRoom 'test', announcement
