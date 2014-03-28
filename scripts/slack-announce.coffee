@@ -34,14 +34,12 @@ module.exports = (robot) ->
       short: true
 
     for room in allRooms
-      robot.messageRoom room, announcement
       payload =
-        message:
-          room: room
+        message: msg.message
         content:
           text: "The '#{service}' service will be going down for maintenance starting #{startTime}."
           fallback: "Downtime planned."
           pretext: "Downtime is planned!"
           color: "#FF0000"
           fields: fields
-      robot.emit 'slack-attachment', payload
+      robot.messageRoom room, payload
