@@ -48,7 +48,7 @@ module.exports = (robot) ->
       robot.emit 'slack-attachment', payload
       msg.reply "Downtime announced."
 
-  robot.respond /announce downtime complete for "(.*)"/i, (msg) ->
+  robot.respond /announce downtime complete for [“|"|‘|'](.*)["|'|”]/i, (msg) ->
     service = msg.match[1]
     fields = []
     fields.push
