@@ -28,7 +28,7 @@ module.exports = (robot) ->
   robot.respond /announce "(.*)"/i, (msg) ->
     announcement = msg.match[1]
     for room in allRooms
-      robot.messageRoom room, announcement
+      msg.custom {"room": room}, announcement
 
   robot.respond /announce downtime for "(.*)" starting (.*)/i, (msg) ->
     user = msg.message.user
@@ -39,13 +39,13 @@ module.exports = (robot) ->
       "If you have questions about this maintenance, please talk to #{user.name} in the the #{user.room} room.  Thank you for your patience."]
 
     for room in allRooms
-      robot.messageRoom room, message...
+      msg.custom {"room": room}, message...
     msg.reply "Don't forget to pause monitoring for this service."
 
   robot.respond /announce downtime complete for "(.*)"/i, (msg) ->
     service = msg.match[1]
     for room in allRooms
-      robot.messageRoom room,
+      msg.custom {"room": room},
           "Maintenance for the '#{service}' service is complete."
     msg.reply "Don't forget to resume monitoring for this service."
 
@@ -56,5 +56,5 @@ module.exports = (robot) ->
       rooms = allRooms
 
     for room in rooms
-      robot.messageRoom room, req.body.message
+      msg.custom {"room": room}, req.body.message
     res.end "Message Sent"
