@@ -43,4 +43,4 @@ module.exports = (robot) ->
           pretext: "Downtime is planned!"
           color: "#FF0000"
           fields: fields
-      msg.custom room, payload
+      robot.emit room, payload
