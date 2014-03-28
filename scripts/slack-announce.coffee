@@ -15,12 +15,12 @@ module.exports = (robot) ->
   if process.env.HUBOT_ANNOUNCE_ROOMS
     allRooms = process.env.HUBOT_ANNOUNCE_ROOMS.split(',')
 
-  robot.respond /announce [“|"|‘|'](.*)["|']/i, (msg) ->
+  robot.respond /announce [“|"|‘|'](.*)["|'|”]/i, (msg) ->
     announcement = msg.match[1]
     for room in allRooms
       robot.messageRoom room, announcement
 
-  robot.respond /announce downtime [“|"|‘|'](.*)["|'] (.*)/i, (msg) ->
+  robot.respond /announce downtime [“|"|‘|'](.*)["|'|”] (.*)/i, (msg) ->
     fields = []
     fields.push
       title: "Field 1: Title"
