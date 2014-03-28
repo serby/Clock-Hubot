@@ -7,7 +7,7 @@
 #
 # Commands:
 #   hubot announce <message> - Announce message
-#   hubot announce downtime "<service>" <timeframe> - Announcing downtime commencement
+#   hubot announce downtime for "<service>" starting <timeframe> - Syntactic sugar for announcing downtime commencement
 
 module.exports = (robot) ->
 
@@ -20,25 +20,27 @@ module.exports = (robot) ->
     for room in allRooms
       robot.messageRoom room, announcement
 
-  robot.respond /announce downtime [“|"|‘|'](.*)["|'|”] (.*)/i, (msg) ->
+  robot.respond /announce downtime for [“|"|‘|'](.*)["|'|”] starting (.*)/i, (msg) ->
+    service = msg.match[1]
+    startTime = msg.match[2]
     fields = []
     fields.push
-      title: "Field 1: Title"
-      value: "Field 1: Value"
+      title: "Service"
+      value: service
       short: true
 
     fields.push
-      title: "Field 2: Title"
-      value: "Field 2: Value"
+      title: "Starting"
+      value: startTime
       short: true
 
-    payload =
-      message: msg.message
-      content:
-        text: "Attachement Demo Text"
-        fallback: "Fallback Text"
-        pretext: "This is Pretext"
-        color: "#FF0000"
-        fields: fields
-
-    robot.emit 'slack-attachment', payload
+    for room in allRooms
+      payload =
+        message: msg.message
+        content:
+          text: "The '#{service}' service will be going down for maintenance starting #{startTime}."
+          fallback: "Downtime planned."
+          pretext: "Downtime is planned!"
+          color: "#FF0000"
+          fields: fields
+      robot.emit room, payload
