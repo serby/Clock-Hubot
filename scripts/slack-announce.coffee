@@ -37,7 +37,7 @@ module.exports = (robot) ->
       short: true
 
     for room in allRooms
-      msg.room = room
+      msg.message.room = room
       payload =
         message: msg.message
         content:
@@ -58,7 +58,7 @@ module.exports = (robot) ->
       short: true
 
     for room in allRooms
-      msg.room = room
+      msg.message.room = room
       payload =
         message: msg.message
         content:
