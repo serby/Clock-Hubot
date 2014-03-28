@@ -9,6 +9,12 @@
 #   hubot announce <message> - Announce message
 
 module.exports = (robot) ->
+
+  allRooms = []
+  if process.env.HUBOT_ANNOUNCE_ROOMS
+    allRooms = process.env.HUBOT_ANNOUNCE_ROOMS.split(',')
+
   robot.respond /announce [“|"|‘|'](.*)["|']/i, (msg) ->
     announcement = msg.match[1]
-    robot.messageRoom 'test', announcement
+    for room in allRooms
+      robot.messageRoom room, announcement
