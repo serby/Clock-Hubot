@@ -37,4 +37,4 @@ module.exports = (robot) ->
 
   robot.respond /hangout/i, (msg) ->
 
-    msg.send "There is information avalable for #{msg.message.reply_to}."
+    msg.send "There is information avalable for #{JSON.stringify(msg)}."
