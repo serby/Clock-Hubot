@@ -47,7 +47,7 @@ module.exports = (robot) ->
           color: "#FF0000"
           fields: fields
       robot.emit 'slack-attachment', payload
-      msg.reply "Downtime announced."
+    msg.reply "Downtime announced."
 
   robot.respond /announce downtime complete for [“|"|‘|'](.*)["|'|”]/i, (msg) ->
     service = msg.match[1]
@@ -68,4 +68,4 @@ module.exports = (robot) ->
           color: "#00FF00"
           fields: fields
       robot.emit 'slack-attachment', payload
-      msg.reply "Maintenance completion announced."
+    msg.reply "Maintenance completion announced."
