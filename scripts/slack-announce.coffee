@@ -18,3 +18,30 @@ module.exports = (robot) ->
     announcement = msg.match[1]
     for room in allRooms
       robot.messageRoom room, announcement
+
+  robot.respond /announce downtime for [“|"|‘|'](.*)["|'] starting (.*)/i, (msg) ->
+    service = msg.match[1]
+    startTime = msg.match[2]
+    fields = []
+    fields.push
+      title: "Service"
+      value: service
+      short: true
+
+    fields.push
+      title: "Starting"
+      value: startTime
+      short: true
+
+    for room in allRooms
+      robot.messageRoom room, announcement
+      payload =
+        message:
+          room: room
+        content:
+          text: "The '#{service}' service will be going down for maintenance starting #{startTime}."
+          fallback: "Downtime planned."
+          pretext: "Downtime is planned!"
+          color: "#FF0000"
+          fields: fields
+      robot.emit 'slack-attachment', payload
