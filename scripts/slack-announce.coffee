@@ -21,7 +21,7 @@ module.exports = (robot) ->
       robot.messageRoom room, announcement
 
   robot.respond /announce downtime for [“|"|‘|'](.*)["|'] starting (.*)/i, (msg) ->
-     fields = []
+    fields = []
     fields.push
       title: "Field 1: Title"
       value: "Field 1: Value"
