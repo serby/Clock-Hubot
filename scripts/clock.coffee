@@ -4,6 +4,7 @@
 # Commands:
 #   hubot info available - Show which fields have information available
 #   hubot info for <field> - Reply with useful Clock information based on field
+#   hubot hangout - Reply with clock hangout link
 
 available = "engineers, frontends, everyone"
 
@@ -32,3 +33,8 @@ module.exports = (robot) ->
   robot.respond /info available/i, (msg) ->
 
     msg.send "There is information avalable for #{available}."
+
+
+  robot.respond /hangout/i, (msg) ->
+
+    msg.send "There is information avalable for #{msg.message.reply_to}."
