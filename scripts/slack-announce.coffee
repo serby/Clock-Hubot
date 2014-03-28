@@ -7,6 +7,7 @@
 #
 # Commands:
 #   hubot announce <message> - Announce message
+#   hubot announce downtime for "<service>" starting <timeframe> - Syntactic sugar for announcing downtime commencement
 
 module.exports = (robot) ->
 
