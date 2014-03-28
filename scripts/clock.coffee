@@ -36,5 +36,4 @@ module.exports = (robot) ->
 
 
   robot.respond /hangout/i, (msg) ->
-
-    msg.send "There is information avalable for #{JSON.stringify(msg)}."
+    msg.send "https://plus.google.com/hangouts/_/clock.co.uk/#{msg.message.room}"
