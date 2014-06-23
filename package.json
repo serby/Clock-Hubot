@@ -26,7 +26,8 @@
     "hubot-worldcup": "^0.2.5",
     "htmlparser": "1.7.6",
     "soupselect": "0.2.0",
-    "xml2js": "0.1.14"
+    "xml2js": "0.1.14",
+    "hubot-world-cup-live": "^0.2.2"
   },
   "engines": {
     "node": ">= 0.8.x",
